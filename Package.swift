@@ -65,7 +65,7 @@ let package = Package(
     ]
 )
 
-#if os(Linux) || os(Windows)
+#if os(Linux) || os(Windows) || os(Android)
 package.targets += [
     .systemLibrary(
         name: "OpenSSL",
