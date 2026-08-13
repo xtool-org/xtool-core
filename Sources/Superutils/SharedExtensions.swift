@@ -37,7 +37,7 @@ public extension String {
 
 }
 
-#if !os(Linux)
+#if !os(Linux) && !os(Android)
 public extension Progress {
 
     static func performDiscretely<ReturnType>(work: () throws -> ReturnType) rethrows -> ReturnType {
@@ -315,7 +315,7 @@ public extension Optional {
 public extension Array where Element == String {
 
     func localizedJoined() -> String {
-        #if !os(Linux)
+        #if !os(Linux) && !os(Android)
         if #available(macOS 10.15, *) {
             return ListFormatter.localizedString(byJoining: self)
         }
