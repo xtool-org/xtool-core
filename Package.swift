@@ -2,16 +2,6 @@
 
 import PackageDescription
 
-extension Product.Library.LibraryType {
-    static var smart: Self {
-        #if os(Linux)
-        return .static
-        #else
-        return .dynamic
-        #endif
-    }
-}
-
 let package = Package(
     name: "xtool-core",
     platforms: [
@@ -21,22 +11,18 @@ let package = Package(
     products: [
         .library(
             name: "Superutils",
-            type: .smart,
             targets: ["Superutils"]
         ),
         .library(
             name: "SuperutilsTestSupport",
-            type: .smart,
             targets: ["SuperutilsTestSupport"]
         ),
         .library(
             name: "ProtoCodable",
-            type: .smart,
             targets: ["ProtoCodable"]
         ),
         .library(
             name: "SignerSupport",
-            type: .smart,
             targets: ["SignerSupport"]
         ),
         .library(name: "plist", targets: ["plist"]),
