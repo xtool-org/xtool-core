@@ -52,7 +52,12 @@ let package = Package(
 )
 
 #if os(Linux) || os(Windows) || os(Android)
-package.targets += [
+let useSystemLibraries = true
+#else
+let useSystemLibraries = Context.environment["XTL_SYSTEM_LIBRARIES"] == "1"
+#endif
+
+let systemLibraryTargets: [Target] = [
     .systemLibrary(
         name: "OpenSSL",
         path: "Sources/OpenSSLSystem",
@@ -94,8 +99,8 @@ package.targets += [
         ]
     ),
 ]
-#else
-package.targets += [
+
+let binaryTargets: [Target] = [
     .binaryTarget(
         name: "plist",
         url: "https://github.com/xtool-org/xtool-libs/releases/download/1.0.0/plist.xcframework.zip",
@@ -122,4 +127,5 @@ package.targets += [
         checksum: "41d034ea1c075bfa74048e851358a550996c286de8230d1df39f137b06235c87"
     ),
 ]
-#endif
+
+package.targets += useSystemLibraries ? systemLibraryTargets : binaryTargets
